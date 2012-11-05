@@ -22,8 +22,8 @@ This is not intended as a permenant solution, I hope that there is a nicer more 
 
 ### Functions
 
-- hiera_has_backend(<backend>) : returns true or false
-- hiera_backend(<backend>, <query>, [<default>[<override>]])
+- `hiera_has_backend(<backend>)` : returns true or false
+- `hiera_backend(<backend>, <query>, [<default>[<override>]])`
 
 
 
