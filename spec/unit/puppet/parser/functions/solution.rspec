@@ -1,0 +1,23 @@
+require 'puppet'
+
+RSpec.configure { |config| config.mock_with :mocha }
+
+
+describe Puppet::Parser::Functions.function(:has_hiera_backend) do
+  let :scope do
+   Puppet::Parser::Scope.new
+  end
+  let (:configfile) { File.join(File.dirname(Puppet.settings[:config]), "hiera.yaml") }
+  let (:hiera_config) { { :backends => ['yaml','json','gpg'] } }
+  it "should return false for foo" do
+    File.stubs(:exists?).with(configfile).returns(true)
+    YAML.stubs(:load_file).with(configfile).returns(hiera_config)
+    scope.function_hiera_has_backend(['foo']).should == false
+  end
+  it "should return true for YAML" do
+    File.stubs(:exists?).with(configfile).returns(true)
+    YAML.stubs(:load_file).with(configfile).returns(hiera_config)
+    scope.function_hiera_has_backend(['yaml']).should == true
+  end
+
+end
